@@ -1,16 +1,17 @@
-os.makedirs("reports", exist_ok=True)
 import csv
 import os
 
 
 def save_report(elapsed, throughput, memory_mb):
-    file_exists = os.path.exists("reports/results.csv")
+    os.makedirs("reports", exist_ok=True)
 
-    with open(
-        "reports/results.csv",
-        "a",
-        newline=""
-    ) as f:
+    print("save_report called")
+
+    file_path = "reports/results.csv"
+
+    file_exists = os.path.exists(file_path)
+
+    with open(file_path, "a", newline="") as f:
 
         writer = csv.writer(f)
 
@@ -26,3 +27,5 @@ def save_report(elapsed, throughput, memory_mb):
             throughput,
             memory_mb
         ])
+    print("save_report called")
+    print(f"Saved report to {file_path}")

@@ -80,3 +80,4 @@ save_report(
     samples_per_second,
     memory
 )
+from report import save_report
