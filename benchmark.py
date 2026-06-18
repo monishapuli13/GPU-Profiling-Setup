@@ -15,3 +15,13 @@ class SimpleNet(nn.Module):
 
     def forward(self, x):
         return self.layers(x)
+    model = SimpleNet().cuda()
+
+for _ in range(100):
+    x = torch.randn(256,1024).cuda()
+
+    output = model(x)
+
+    loss = output.mean()
+
+    loss.backward()
