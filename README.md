@@ -1,188 +1,90 @@
-Enterprise-grade profiling suite for PyTorch models with detailed
-performance analytics, memory monitoring, and visualization capabilities.
+# ML Performance Profiler
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CORE CAPABILITIES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A lightweight PyTorch benchmarking and profiling toolkit for analyzing neural network performance.
 
-• PyTorch Profiler Integration:
-  - Automated CUDA/CPU kernel-level profiling
-  - Operator-level execution time breakdown
-  - Chrome trace format export for visualization
-  - Configurable profiling frequency and depth
+## Features
 
-• Performance Metrics:
-  - Execution time: per-operator and aggregate
-  - Memory utilization: peak and average usage
-  - Throughput: samples/second and latency analysis
-  - GPU utilization: kernel occupancy and memory bandwidth
+* PyTorch Profiler integration
+* CPU execution profiling
+* Chrome trace export
+* Memory utilization monitoring
+* Throughput benchmarking
+* CSV report generation
+* Performance visualization
 
-• Memory Monitoring:
-  - Peak memory allocation tracking
-  - Memory fragmentation analysis
-  - Allocation pattern visualization
-  - CPU/GPU memory separation
+## Project Structure
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BENCHMARKING SUITE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```text
+ML-Performance-Profiler/
+├── benchmark.py
+├── metrics.py
+├── throughput.py
+├── report.py
+├── visualize.py
+├── reports/
+│   ├── results.csv
+│   └── throughput.png
+├── traces/
+│   └── trace.json
+└── requirements.txt
+```
 
-• Execution Modes:
-  - Single-run profiling for ad-hoc analysis
-  - Multi-run benchmarking for statistical significance
-  - Warm-up iterations for accurate measurements
-  - Batch size and sequence length scalability testing
+## Installation
 
-• Metrics Collected:
-  - CPU execution time (ms)
-  - GPU execution time (ms)
-  - Peak memory usage (MB)
-  - Average memory usage (MB)
-  - Throughput (samples/sec)
-  - Kernel execution breakdown
+```bash
+pip install -r requirements.txt
+```
 
-• Benchmark Scenarios:
-  - Inference latency under different batch sizes
-  - Training step throughput
-  - Memory scaling with model size
-  - Performance degradation analysis
+## Run Benchmark
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-REPORTING & VISUALIZATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• CSV Export:
-  - Comprehensive benchmark reports with timestamps
-  - Per-iteration metrics for trend analysis
-  - Aggregated statistics (mean, std, min, max)
-  - Machine-readable format for CI/CD pipelines
-
-• Visualization Dashboard:
-  - Interactive plots with matplotlib/plotly
-  - Time-series performance trends
-  - Memory usage heatmaps
-  - Operator-level execution profiles
-  - Chrome trace viewer integration
-
-• Report Generation:
-  - Automated HTML reports with embedded visualizations
-  - Markdown documentation for reproducibility
-  - Comparison reports across runs
-  - Performance regression detection
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TECHNICAL IMPLEMENTATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• Architecture: Modular design with clear separation
-  profiler/
-  ├── benchmark.py      # Core profiling logic
-  ├── visualize.py      # Visualization pipeline
-  ├── metrics.py        # Metrics collection engine
-  ├── reporters.py      # Report generation
-  └── utils.py          # Shared utilities
-
-• Dependencies:
-  - PyTorch 2.0+: Native profiler APIs
-  - TensorBoard: For visualization compatibility
-  - matplotlib/plotly: Interactive visualizations
-  - pandas: Data processing and analysis
-
-• Profiling Strategies:
-  - Python context managers for clean profiling scope
-  - Decorator-based profiling for function-level metrics
-  - Callback hooks for custom monitoring
-  - Asynchronous profiling for minimal overhead
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PRODUCTION ENGINEERING FEATURES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• Robust Error Handling:
-  - Graceful degradation on profiling failures
-  - Hardware-agnostic fallbacks (CUDA → CPU)
-  - Detailed error logging with context
-
-• Configuration Management:
-  - YAML/JSON config support for reproducible benchmarks
-  - CLI arguments for flexible execution
-  - Environment variable integration
-
-• Performance Optimization:
-  - Minimal profiling overhead (<5% on production runs)
-  - Smart sampling for long-running benchmarks
-  - Caching of intermediate results
-
-• DevOps Integration:
-  - CI/CD pipeline ready with non-zero exit codes
-  - Artifact generation for performance regression testing
-  - Integration with monitoring dashboards
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-USE CASES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• Model Optimization: Identify bottlenecks in forward/backward passes
-• Resource Planning: Estimate hardware requirements for deployment
-• Regression Testing: Detect performance degradation across versions
-• Capacity Planning: Understand scaling behavior with batch size
-• Research Validation: Benchmark new architectures against baselines
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-QUICK START
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-# Install dependencies
-pip install torch pandas matplotlib plotly
-
-# Run benchmark on default model
+```bash
 python benchmark.py
+```
 
-# Generate visualization dashboard
+Example Output
+
+```text
+Elapsed Time: 8.32s
+Throughput: 3077.28 samples/sec
+Memory Usage: 368.97 MB
+Trace saved to traces/trace.json
+```
+
+## Generate Visualization
+
+```bash
 python visualize.py
+```
 
-# Custom benchmark configuration
-python benchmark.py --model resnet50 --batch-size 32 --iterations 100
+Output:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TECHNICAL DECISIONS & RATIONALE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```text
+reports/
+├── results.csv
+└── throughput.png
+```
 
-Why PyTorch Profiler?
-→ Native integration with PyTorch ecosystem
-→ Kernel-level visibility for CUDA operations
-→ Chromium trace format for industry-standard visualization
+## Metrics Collected
 
-Why CSV + HTML Reports?
-→ Machine-readable for CI/CD integration
-→ Human-readable for quick analysis
-→ Reproducible benchmark artifacts
+| Metric          | Description                           |
+| --------------- | ------------------------------------- |
+| CPU Time        | Operator-level execution time         |
+| Memory Usage    | Process memory consumption            |
+| Throughput      | Samples processed per second          |
+| Execution Trace | Chrome trace for performance analysis |
 
-Why Multiple Visualization Options?
-→ Chrome trace: deep technical analysis
-→ matplotlib: quick prototyping
-→ plotly: interactive sharing
+## Technologies
 
-Why Modular Design?
-→ Easy extension for custom metrics
-→ Plug-and-play visualization backends
-→ Minimal friction for integration into existing projects
+* Python
+* PyTorch
+* Pandas
+* Matplotlib
+* psutil
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ROADMAP
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Future Improvements
 
-□ Distributed profiling support (multi-GPU, multi-node)
-□ Real-time monitoring dashboard with Flask/FastAPI
-□ Integration with Weights & Biases for experiment tracking
-□ Automated performance regression alerts
-□ Profile comparison across hardware configurations
-□ Export to common benchmarking formats (MLPerf, etc.)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-This toolkit enables systematic performance optimization of PyTorch
-models with comprehensive metrics and actionable insights.
-
-Built with: PyTorch | Python | Pandas | Matplotlib | Plotly
-License: MIT | Status: Production-Ready"
+* GPU profiling support
+* Multi-model benchmarking
+* Interactive dashboard
+* Distributed training analysis
+* Automated optimization suggestions
