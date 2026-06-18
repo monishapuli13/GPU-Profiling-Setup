@@ -3,6 +3,7 @@
 import os
 import torch
 import torch.nn as nn
+from metrics import get_memory_usage
 from torch.profiler import profile
 
 
@@ -46,9 +47,17 @@ with profile(
 
     for _ in range(100):
         train_step()
-
-prof.export_chrome_trace(
-    "traces/trace.json"
+print(
+    prof.key_averages().table(
+        sort_by="cpu_time_total",
+        row_limit=10
+    )
 )
 
-print("Trace saved to traces/trace.json")
+try:
+    prof.export_chrome_trace("traces/trace.json")
+    print("Trace saved to traces/trace.json")
+except RuntimeError as e:
+    print(f"Profiler trace already exists: {e}")
+
+print(get_memory_usage())
