@@ -3,9 +3,11 @@
 import os
 import torch
 import torch.nn as nn
+import time
 from metrics import get_memory_usage
 from torch.profiler import profile
-
+from throughput import benchmark
+from report import save_report
 
 class SimpleNet(nn.Module):
     def __init__(self):
@@ -37,22 +39,32 @@ def train_step():
 
 
 os.makedirs("traces", exist_ok=True)
+iterations = 100
+batch_size = 256
+
+start = time.perf_counter()
 
 with profile(
     activities=[
-        torch.profiler.ProfilerActivity.CPU,
-        torch.profiler.ProfilerActivity.CUDA
+        torch.profiler.ProfilerActivity.CPU
     ]
 ) as prof:
 
-    for _ in range(100):
+    for _ in range(iterations):
         train_step()
+
+elapsed = time.perf_counter() - start
+
+samples_per_second = (iterations * batch_size) / elapsed
 print(
     prof.key_averages().table(
         sort_by="cpu_time_total",
         row_limit=10
     )
 )
+
+print(f"\nElapsed Time: {elapsed:.2f}s")
+print(f"Throughput: {samples_per_second:.2f} samples/sec")
 
 try:
     prof.export_chrome_trace("traces/trace.json")
@@ -61,3 +73,10 @@ except RuntimeError as e:
     print(f"Profiler trace already exists: {e}")
 
 print(get_memory_usage())
+memory = get_memory_usage()["rss_mb"]
+
+save_report(
+    elapsed,
+    samples_per_second,
+    memory
+)
