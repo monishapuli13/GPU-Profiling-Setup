@@ -88,3 +88,17 @@ reports/
 * Interactive dashboard
 * Distributed training analysis
 * Automated optimization suggestions
+
+## Benchmark Results
+
+<div align="center">
+<img src="assets/throughput.png" width="700"/>
+</div>
+
+## Execution Trace Analysis
+
+PyTorch execution trace visualized using Perfetto.
+
+<div align="center">
+<img src="assets/perfetto-trace.png" width="900"/>
+</div>
