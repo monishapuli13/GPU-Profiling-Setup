@@ -1,5 +1,5 @@
 # benchmark.py
-
+from torch.profiler import profile
 import torch
 import torch.nn as nn
 
@@ -25,3 +25,11 @@ for _ in range(100):
     loss = output.mean()
 
     loss.backward()
+with profile(
+    activities=[
+        torch.profiler.ProfilerActivity.CPU,
+        torch.profiler.ProfilerActivity.CUDA
+    ]
+) as prof:
+
+    train_step()
